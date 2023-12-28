@@ -30,7 +30,7 @@ def countCallsForAllUsers():
         USER_API = UsersAPI.get(user_id)
 
         headers = {
-            "Authorization": f"Bearer {USER_API}"
+            "Authorization": f"Bearer {USER_API}",
         }
 
         params = {
