@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden; /* Hide overflow to prevent scrollbars from appearing */
+  background: linear-gradient(45deg, #92a8d1, #034f84, #92a8d1, #034f84);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.App {
+  text-align: center;
+}
+
+h1 {
+  color: #fff; /* Set h1 text color to white */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow for better contrast */
+}
+
+.bubbles-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.bubble {
+  width: 150px;
+  height: 100px;
+  
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.6) 0%, rgba(52, 152, 219, 0.3) 100%);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(52, 152, 219, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.bubble div {
+  margin: 0;
+}
+
+.total-calls {
+  color: #fff; /* Set Total Calls text color to white */
+  font-size: 24px; /* Set font size to make it larger */
+  margin-top: 20px; /* Adjust top margin as needed */
+}

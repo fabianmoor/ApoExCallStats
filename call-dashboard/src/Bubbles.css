@@ -1,0 +1,15 @@
+.bubbles-container {
+  display: flex; /* To arrange bubbles in a row */
+  /* flex-direction: column; */ /* Use this for a column layout */
+  flex-wrap: wrap; /* Allow bubbles to wrap onto the next line */
+  gap: 10px; /* Spacing between bubbles */
+  /* Optional: Add other styles for positioning, alignment, etc. */
+}
+
+.bubble {
+  background-color: #3498db; /* Bubble color */
+  color: #fff; /* Text color */
+  padding: 10px 15px; /* Adjust padding for bubble size */
+  border-radius: 20px; /* Border radius for rounded corners */
+  /* Other styles for bubble appearance */
+}
