@@ -6,7 +6,7 @@ const App = () => {
   const [totalCalls, setTotalCalls] = useState(0);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/get_all_calls')
+    fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls')
       .then((response) => response.json())
       .then((data) => {
         const usersData = Object.entries(data).map(([name, calls]) => ({
