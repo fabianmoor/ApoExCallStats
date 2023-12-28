@@ -5,7 +5,7 @@ const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
 
-  useEffect(() => {
+  const fetchData = () => {
     fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls')
       .then((response) => response.json())
       .then((data) => {
@@ -27,7 +27,18 @@ const App = () => {
       .catch((error) => {
         console.error('Error fetching user call data:', error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchData(); // Fetch data immediately on component mount
+
+    const intervalId = setInterval(() => {
+      fetchData(); // Fetch data at intervals
+    }, 10000); // 10 seconds in milliseconds
+
+    // Clear interval on component unmount to prevent memory leaks
+    return () => clearInterval(intervalId);
+  }, []); // Empty dependency array to run useEffect only once on mount
 
   return (
     <div className="App">
