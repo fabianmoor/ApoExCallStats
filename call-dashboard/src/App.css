@@ -28,6 +28,7 @@ body {
 h1 {
   color: #fff; /* Set h1 text color to white */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow for better contrast */
+  animation: slideIn 0.5s ease forwards; /* Adjust duration and timing function as needed */
 }
 
 .bubbles-container {
@@ -58,15 +59,42 @@ h1 {
   padding: 10px;
   text-align: center;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.5s ease forwards; /* Adjust duration and timing function as needed */
 }
 
 .bubble div {
   margin: 0;
+  animation: slideIn 0.5s ease forwards; /* Adjust duration and timing function as needed */
 }
+
 
 .total-calls {
   color: #fff; /* Set Total Calls text color to white */
   font-size: 24px; /* Set font size to make it larger */
   margin-top: 20px; /* Adjust top margin as needed */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* Define the animation for slide and opacity increase */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px); /* Adjust the value for desired starting position */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply the animation to all elements with a class of 'animate-on-appear' */
+
+/* Optionally, you can add a delay to stagger the animation for each element */
+.animate-on-appear:nth-child(odd) {
+  animation-delay: 0.1s; /* Adjust the delay time for a staggered effect */
+}
+.animate-on-appear:nth-child(even) {
+  animation-delay: 0.2s; /* Adjust the delay time for a staggered effect */
 }
