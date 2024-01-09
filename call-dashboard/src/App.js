@@ -4,6 +4,7 @@ import './App.css';
 const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
   const intervalTime = 10000; // Fetch data every 10 seconds (adjust as needed)
   const fetchingData = useRef(false); // Flag to track if data is being fetched
 
@@ -32,6 +33,7 @@ const App = () => {
       }));
 
       setUserData(usersWithPercentage);
+      setIsLoading(false); // Set loading state to false after data is fetched
     } catch (error) {
       console.error('Error fetching user call data:', error);
       // Implement retry mechanism or backoff strategy here if needed
@@ -50,6 +52,10 @@ const App = () => {
     fetchDataWithInterval();
   }, []);
   
+  if (isLoading) {
+    return <div>Loading...</div>; // Show loading message while data is being fetched
+  }
+
   return (
     <div className="App">
       <h1>ApoEx User Stats</h1>
