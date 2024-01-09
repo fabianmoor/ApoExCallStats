@@ -9,9 +9,6 @@ const App = () => {
   const fetchingData = useRef(false); // Flag to track if data is being fetched
 
   const fetchData = async () => {
-    if (fetchingData.current) return; // Exit if already fetching data
-    fetchingData.current = true; // Set flag to true when starting to fetch data
-
     try {
       const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
       if (!response.ok) {
@@ -37,8 +34,6 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching user call data:', error);
       // Implement retry mechanism or backoff strategy here if needed
-    } finally {
-      fetchingData.current = false; // Reset the flag when fetch operation completes
     }
   };
 
