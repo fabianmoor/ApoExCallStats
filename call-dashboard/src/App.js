@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
   const intervalTime = 10000; // Fetch data every 10 seconds (adjust as needed)
+  const fetchingData = useRef(false); // Flag to track if data is being fetched
 
   const fetchData = async () => {
+    if (fetchingData.current) return; // Exit if already fetching data
+    fetchingData.current = true; // Set flag to true when starting to fetch data
+
     try {
       const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
       if (!response.ok) {
@@ -31,22 +35,21 @@ const App = () => {
     } catch (error) {
       console.error('Error fetching user call data:', error);
       // Implement retry mechanism or backoff strategy here if needed
+    } finally {
+      fetchingData.current = false; // Reset the flag when fetch operation completes
     }
   };
 
   useEffect(() => {
     const fetchDataWithInterval = () => {
-      fetchData(); // Fetch data immediately on component mount
+      fetchData(); // Fetch data immediately
 
-      const intervalId = setInterval(fetchData, intervalTime);
-
-      // Clear interval on component unmount to prevent memory leaks
-      return () => clearInterval(intervalId);
+      setTimeout(fetchDataWithInterval, intervalTime); // Schedule next fetch after the interval
     };
 
     fetchDataWithInterval();
-  }, []); // Empty dependency array to run useEffect only once on mount
-
+  }, []);
+  
   return (
     <div className="App">
       <h1>ApoEx User Stats</h1>
