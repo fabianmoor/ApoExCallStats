@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // Added loading state
-  const intervalTime = 10000; // Fetch data every 10 seconds (adjust as needed)
-  const fetchingData = useRef(false); // Flag to track if data is being fetched
+  const [isLoading, setIsLoading] = useState(true);
+  const intervalTime = 10000;
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
       if (!response.ok) {
@@ -22,33 +22,34 @@ const App = () => {
       }));
 
       const total = usersData.reduce((accumulator, currentValue) => accumulator + currentValue.calls, 0);
-      setTotalCalls(total);
 
       const usersWithPercentage = usersData.map(user => ({
         ...user,
         percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
       }));
 
-      setUserData(usersWithPercentage);
-      setIsLoading(false); // Set loading state to false after data is fetched
+      // Only update state if fetched data is different from current state
+      if (JSON.stringify(usersWithPercentage) !== JSON.stringify(userData)) {
+        setUserData(usersWithPercentage);
+      }
+      if (total !== totalCalls) {
+        setTotalCalls(total);
+      }
+
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching user call data:', error);
-      // Implement retry mechanism or backoff strategy here if needed
     }
   };
 
   useEffect(() => {
-    const fetchDataWithInterval = () => {
-      fetchData(); // Fetch data immediately
-
-      setTimeout(fetchDataWithInterval, intervalTime); // Schedule next fetch after the interval
-    };
-
-    fetchDataWithInterval();
+    fetchData();
+    const interval = setInterval(fetchData, intervalTime);
+    return () => clearInterval(interval);
   }, []);
-  
+
   if (isLoading) {
-    return <div>Loading...</div>; // Show loading message while data is being fetched
+    return <div>Loading...</div>;
   }
 
   return (
