@@ -8,7 +8,7 @@ const App = () => {
   const intervalTime = 10000;
 
   const fetchData = async () => {
-    setIsLoading(true);
+    /*setIsLoading(true);*/
     try {
       const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
       if (!response.ok) {
@@ -36,7 +36,7 @@ const App = () => {
         setTotalCalls(total);
       }
 
-      setIsLoading(false);
+      /*setIsLoading(false);*/
     } catch (error) {
       console.error('Error fetching user call data:', error);
     }
@@ -48,9 +48,9 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (isLoading) {
+  /*if (isLoading) {
     return <div>Loading...</div>;
-  }
+  }*/
 
   return (
     <div className="App">
