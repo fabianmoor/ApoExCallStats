@@ -34,7 +34,7 @@ const App = () => {
 
     const intervalId = setInterval(() => {
       fetchData(); // Fetch data at intervals
-    }, 10000); // 10 seconds in milliseconds
+    }, 1000); // 10 seconds in milliseconds
 
     // Clear interval on component unmount to prevent memory leaks
     return () => clearInterval(intervalId);
