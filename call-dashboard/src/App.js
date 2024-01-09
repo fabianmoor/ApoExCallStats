@@ -4,53 +4,47 @@ import './App.css';
 const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
+  const intervalTime = 10000; // Fetch data every 10 seconds (adjust as needed)
 
-  const fetchData = () => {
-    fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls')
-      .then((response) => response.json())
-      .then((data) => {
-        const usersData = Object.entries(data).map(([name, calls]) => ({
-          name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
-          calls: calls
-        }));
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      const data = await response.json();
 
-        const total = usersData.reduce((accumulator, currentValue) => accumulator + currentValue.calls, 0);
-        setTotalCalls(total);
+      const usersData = Object.entries(data).map(([name, calls]) => ({
+        name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+        calls: calls
+      }));
 
-        const usersWithPercentage = usersData.map(user => ({
-          ...user,
-          percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
-        }));
+      const total = usersData.reduce((accumulator, currentValue) => accumulator + currentValue.calls, 0);
+      setTotalCalls(total);
 
-        setUserData(usersWithPercentage);
-      })
-      .catch((error) => {
-        console.error('Error fetching user call data:', error);
-      });
+      const usersWithPercentage = usersData.map(user => ({
+        ...user,
+        percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
+      }));
+
+      setUserData(usersWithPercentage);
+    } catch (error) {
+      console.error('Error fetching user call data:', error);
+      // Implement retry mechanism or backoff strategy here if needed
+    }
   };
 
-   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
-        if (!response.ok) {
-          throw new Error('Network response was not ok.');
-        }
+  useEffect(() => {
+    const fetchDataWithInterval = () => {
+      fetchData(); // Fetch data immediately on component mount
 
-        const data = await response.json();
-        // Process and update state similar to your existing code
+      const intervalId = setInterval(fetchData, intervalTime);
 
-      } catch (error) {
-        console.error('Error fetching user call data:', error);
-      }
+      // Clear interval on component unmount to prevent memory leaks
+      return () => clearInterval(intervalId);
     };
 
-    const intervalId = setInterval(() => {
-      fetchData(); // Fetch data at intervals
-    }, intervalTime);
-
-    // Clear interval on component unmount to prevent memory leaks
-    return () => clearInterval(intervalId);
+    fetchDataWithInterval();
   }, []); // Empty dependency array to run useEffect only once on mount
 
   return (
