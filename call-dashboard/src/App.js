@@ -29,12 +29,25 @@ const App = () => {
       });
   };
 
-  useEffect(() => {
-    fetchData(); // Fetch data immediately on component mount
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
+        if (!response.ok) {
+          throw new Error('Network response was not ok.');
+        }
+
+        const data = await response.json();
+        // Process and update state similar to your existing code
+
+      } catch (error) {
+        console.error('Error fetching user call data:', error);
+      }
+    };
 
     const intervalId = setInterval(() => {
       fetchData(); // Fetch data at intervals
-    }, 5000); // 10 seconds in milliseconds
+    }, intervalTime);
 
     // Clear interval on component unmount to prevent memory leaks
     return () => clearInterval(intervalId);
