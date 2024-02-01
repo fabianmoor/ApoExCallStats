@@ -5,7 +5,9 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden; /* Hide overflow to prevent scrollbars from appearing */
-  background: linear-gradient(45deg, #B2C8DF, #6E85B7, #B2C8DF, #6E85B7);
+  /*background: linear-gradient(45deg, #B2C8DF, #6E85B7, #B2C8DF, #6E85B7); */
+  background: linear-gradient(45deg, #CC869B, #FEBFD2, #CC869B, #FEBFD2,);
+  
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
