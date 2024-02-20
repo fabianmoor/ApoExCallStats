@@ -10,8 +10,8 @@ const App = () => {
   const fetchData = async () => {
     /*setIsLoading(true);*/
     try {
-      const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
-      /*const response = await fetch('http://51.21.1.249:8000/get_all_calls')*/
+      /*const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');*/
+      const response = await fetch('http://13.53.35.91:8000/get_all_calls')
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }
