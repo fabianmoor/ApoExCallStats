@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
-import https from 'https';
-
-const insecureAgent = new https.Agent({ rejectUnauthorized: false });
 
 const App = () => {
   const [userData, setUserData] = useState([]);
   const [totalCalls, setTotalCalls] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const intervalTime = 10000;
 
   const fetchData = async () => {
+    /*setIsLoading(true);*/
     try {
-      const response = await axios.get('https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        httpsAgent: insecureAgent,
-      });
-
-      const data = response.data;
+      const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
+      /*const response = await fetch('http://13.53.35.91:8000/get_all_calls')*/
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      const data = await response.json();
 
       const usersData = Object.entries(data).map(([name, calls]) => ({
         name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
@@ -40,6 +36,8 @@ const App = () => {
       if (total !== totalCalls) {
         setTotalCalls(total);
       }
+
+      /*setIsLoading(false);*/
     } catch (error) {
       console.error('Error fetching user call data:', error);
     }
@@ -50,6 +48,10 @@ const App = () => {
     const interval = setInterval(fetchData, intervalTime);
     return () => clearInterval(interval);
   }, []);
+
+  /*if (isLoading) {
+    return <div>Loading...</div>;
+  }*/
 
   return (
     <div className="App">
