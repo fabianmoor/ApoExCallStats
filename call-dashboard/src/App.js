@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import './App.css';
 
 const App = () => {
   const [userData, setUserData] = useState([]);
@@ -10,39 +10,34 @@ const App = () => {
   const fetchData = async () => {
     /*setIsLoading(true);*/
     try {
-      /* const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls'); */
-      /* const response = await fetch("http://13.49.18.226:5000/get_all_calls"); */
-      const response = await fetch(
-        "https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          agent: new (require("https").Agent)({
-            rejectUnauthorized: false,
-          }),
+      /*const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');*/
+      /*const response = await fetch('http://13.53.35.91:8000/get_all_calls')*/
+      const response = await fetch('https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        agent: new (require('https').Agent)({
+          rejectUnauthorized: false,
+        }),
+      });
+
 
       if (!response.ok) {
-        throw new Error("Network response was not ok.");
+        throw new Error('Network response was not ok.');
       }
       const data = await response.json();
 
       const usersData = Object.entries(data).map(([name, calls]) => ({
         name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
-        calls: calls,
+        calls: calls
       }));
 
-      const total = usersData.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.calls,
-        0,
-      );
+      const total = usersData.reduce((accumulator, currentValue) => accumulator + currentValue.calls, 0);
 
-      const usersWithPercentage = usersData.map((user) => ({
+      const usersWithPercentage = usersData.map(user => ({
         ...user,
-        percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0,
+        percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
       }));
 
       // Only update state if fetched data is different from current state
@@ -55,7 +50,7 @@ const App = () => {
 
       /*setIsLoading(false);*/
     } catch (error) {
-      console.error("Error fetching user call data:", error);
+      console.error('Error fetching user call data:', error);
     }
   };
 
@@ -80,9 +75,7 @@ const App = () => {
             <div>{user.percentage}%</div>
           </div>
         ))}
-        {totalCalls !== 0 && (
-          <div className="total-calls">Total Calls: {totalCalls}</div>
-        )}
+        {totalCalls !== 0 && <div className="total-calls">Total Calls: {totalCalls}</div>}
       </div>
     </div>
   );
