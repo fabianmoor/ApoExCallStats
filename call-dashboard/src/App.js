@@ -10,7 +10,7 @@ const App = () => {
   const fetchData = async () => {
     /*setIsLoading(true);*/
     try {
-      const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
+      const response = await fetch('https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls');
       /*const response = await fetch('http://13.53.35.91:8000/get_all_calls')*/
       if (!response.ok) {
         throw new Error('Network response was not ok.');
@@ -29,19 +29,54 @@ const App = () => {
         percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
       }));
 
-      // Only update state if fetched data is different from current state
+  
       if (JSON.stringify(usersWithPercentage) !== JSON.stringify(userData)) {
         setUserData(usersWithPercentage);
       }
       if (total !== totalCalls) {
         setTotalCalls(total);
       }
-
-      /*setIsLoading(false);*/
+  
     } catch (error) {
       console.error('Error fetching user call data:', error);
     }
   };
+
+  //const fetchData = async () => {
+    ///*setIsLoading(true);*/
+    //try {
+      //const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls');
+      ///*const response = await fetch('http://13.53.35.91:8000/get_all_calls')*/
+      //if (!response.ok) {
+        //throw new Error('Network response was not ok.');
+      //}
+      //const data = await response.json();
+
+      //const usersData = Object.entries(data).map(([name, calls]) => ({
+        //name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+        //calls: calls
+      //}));
+
+      //const total = usersData.reduce((accumulator, currentValue) => accumulator + currentValue.calls, 0);
+
+      //const usersWithPercentage = usersData.map(user => ({
+        //...user,
+        //percentage: total !== 0 ? ((user.calls / total) * 100).toFixed(2) : 0
+      //}));
+
+      //// Only update state if fetched data is different from current state
+      //if (JSON.stringify(usersWithPercentage) !== JSON.stringify(userData)) {
+        //setUserData(usersWithPercentage);
+      //}
+      //if (total !== totalCalls) {
+        //setTotalCalls(total);
+      //}
+
+      ///*setIsLoading(false);*/
+    //} catch (error) {
+      //console.error('Error fetching user call data:', error);
+    //}
+  //};
 
   useEffect(() => {
     fetchData();
