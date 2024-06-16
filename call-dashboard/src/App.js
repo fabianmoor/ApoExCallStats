@@ -11,7 +11,20 @@ const App = () => {
     /*setIsLoading(true);*/
     try {
       /* const response = await fetch('https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls'); */
-      const response = await fetch('http://13.49.18.226:5000/get_all_calls');
+      /* const response = await fetch("http://13.49.18.226:5000/get_all_calls"); */
+      const response = await fetch(
+        "https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          agent: new (require("https").Agent)({
+            rejectUnauthorized: false,
+          }),
+        },
+      );
+
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
