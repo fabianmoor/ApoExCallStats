@@ -5,10 +5,12 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden; /* Hide overflow to prevent scrollbars from appearing */
-  background: linear-gradient(45deg, #b2c8df, #6e85b7, #b2c8df, #6e85b7);
+  /* background: linear-gradient(45deg, #b2c8df, #6e85b7, #b2c8df, #6e85b7); */
 
-  background: linear-gradient(45deg, #ffc0cb, #800080, #ffc0cb, #800080);
+  /* background: linear-gradient(45deg, #ffc0cb, #800080, #ffc0cb, #800080); */
+
   /*background: linear-gradient(45deg, #e19c95, #FEBFD2, #e19c95, #FEBFD2); */
+  background: linear-gradient(45deg, #ffb6c1, #ffd6e7, #ffb6c1, #ffd6e7);
 
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
