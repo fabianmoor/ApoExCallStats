@@ -5,9 +5,11 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden; /* Hide overflow to prevent scrollbars from appearing */
-  background: linear-gradient(45deg, #B2C8DF, #6E85B7, #B2C8DF, #6E85B7);
+  background: linear-gradient(45deg, #b2c8df, #6e85b7, #b2c8df, #6e85b7);
+
+  background: linear-gradient(45deg, #ffc0cb, #800080, #ffc0cb, #800080);
   /*background: linear-gradient(45deg, #e19c95, #FEBFD2, #e19c95, #FEBFD2); */
-  
+
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 }
@@ -45,7 +47,7 @@ h1 {
 .bubble {
   width: 150px;
   height: 100px;
-  
+
   /*background: linear-gradient(135deg, rgba(52, 152, 219, 0.6) 0%, rgba(52, 152, 219, 0.3) 100%);*/
   color: #fff;
   border-radius: 6px;
@@ -69,7 +71,6 @@ h1 {
   animation: slideIn 0.5s ease forwards; /* Adjust duration and timing function as needed */
 }
 
-
 .total-calls {
   color: #fff; /* Set Total Calls text color to white */
   font-size: 24px; /* Set font size to make it larger */
@@ -77,13 +78,13 @@ h1 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-
-
 /* Define the animation for slide and opacity increase */
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(50px); /* Adjust the value for desired starting position */
+    transform: translateY(
+      50px
+    ); /* Adjust the value for desired starting position */
   }
   to {
     opacity: 1;
