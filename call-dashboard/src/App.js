@@ -13,7 +13,7 @@ const App = () => {
       /*const response = await fetch('https://ec2-13-48-59-20.eu-north-1.compute.amazonaws.com/get_all_calls');*/
       /*const response = await fetch('http://13.53.35.91:8000/get_all_calls')*/
       const response = await fetch(
-        "https://flask-apo-call-219529a50172.herokuapp.com/get_all_calls",
+        "https://apostats.duckdns.org/get_all_calls",
       );
 
       if (!response.ok) {
@@ -113,4 +113,3 @@ const App = () => {
 };
 
 export default App;
-
